@@ -52,7 +52,7 @@ class SimpleCache: NSObject, NSURLSessionTaskDelegate {
 					if let completionHandler = strongSelf.downloadQueue[url] {
 						if let errorReceived = error {
 //							println("ERROR >>>>>>>>> \(errorReceived.localizedFailureReason)")
-							Utils.mainQueue() {
+							dispatch_async(dispatch_get_main_queue()) { 
 								completionHandler(nil, nil)
 								return
 							}
@@ -65,7 +65,7 @@ class SimpleCache: NSObject, NSURLSessionTaskDelegate {
 									strongSelf.URLCache.storeCachedResponse(NSCachedURLResponse(response:response, data:data, userInfo:nil, storagePolicy:NSURLCacheStoragePolicy.Allowed), forRequest: urlRequest)
 								
 									var image = UIImage(data: data)
-									Utils.mainQueue() {
+									dispatch_async(dispatch_get_main_queue()) { 
 										completionHandler(image, nil)
 										return
 									}
