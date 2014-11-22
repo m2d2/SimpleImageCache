@@ -7,23 +7,29 @@ Full explanation is in: http://dinethmendis.com/blog/swift-image-cache-compatibl
 
 Usage:
 
-```SimpleCache.sharedInstance.getImage(request) { image, error in
-		if let err = error {
-		  // thou shall handle errors
-    } else if let fullImage = image {
-			imageView.image = fullImage
-		}
-	}```
+```
+SimpleCache.sharedInstance.getImage(request) { image, error in
+	if let err = error {
+		// thou shall handle errors
+	} else if let fullImage = image {
+		imageView.image = fullImage
+	}
+}
+```
 
 If you are downloading in a cell, the ```prepareForReuse()``` function should do:
 
-```override func prepareForReuse() {
-    ...
-		SimpleCache.sharedInstance.cancelImage(requestUrl)
-	}```
+```
+override func prepareForReuse() {
+	...
+	SimpleCache.sharedInstance.cancelImage(requestUrl)
+}
+```
 	
 Loading cached data only:
 
-```SimpleCache.sharedInstance.getImageFromCache(itemUrl) { image, error in
-    ...
-  }```
+```
+SimpleCache.sharedInstance.getImageFromCache(itemUrl) { image, error in
+	...
+}
+```
